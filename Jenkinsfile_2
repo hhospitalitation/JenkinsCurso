@@ -1,12 +1,45 @@
 pipeline {
     agent any
+
     tools {
         maven 'Maven 3.9.16'
     }
+
     stages {
-        stage('Checkout y Compile') {
+        stage('Checkout') {
             steps {
+                echo 'Descargando el código fuente...'
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                echo 'Compilando el proyecto...'
                 sh 'mvn clean compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Ejecutando pruebas...'
+                sh 'mvn test'
+            }
+        }
+
+        stage('SonarQube') {
+            steps {
+                echo 'Enviando a SonarQube...'
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=JenkinsCurso'
+                    }
+                }
+            }
+        }
+
+        stage('Test de Sintaxis') {
+            steps {
+                sh 'mvn test'
             }
         }
     }
