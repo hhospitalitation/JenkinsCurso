@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven 3.9.16'
+    }
+
+    stages {
+
+        stage('Compile') {
+            steps {
+                echo '🔨 Compilando el proyecto...'
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo '🧪 Ejecutando tests...'
+                sh 'mvn test'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Pipeline terminado correctamente'
+        }
+
+        failure {
+            echo '❌ El pipeline ha fallado'
+        }
+    }
+}
