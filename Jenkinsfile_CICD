@@ -20,6 +20,20 @@ pipeline {
                 sh 'mvn test'
             }
         }
+
+        stage('SonarQube') {
+            steps {
+                echo '🔎 Analizando el código con SonarQube...'
+
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=curso_20260921_cicd \
+                        -Dsonar.host.url=http://sonarQube:9000
+                    '''
+                }
+            }
+        }
     }
 
     post {
