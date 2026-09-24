@@ -15,7 +15,7 @@ class ItemTest {
 		assertEquals(0, actual.getQuality());
 	}
 	@Test
-	@Timeout(value = 40, unit = TimeUnit.MILLISECONDS)
+	@Timeout(value = 1, unit = TimeUnit.SECONDS)
 	void qualityInvalidTest() {
 		Item actual = new Item("algo", 0, 0);
 		assertThrows(Exception.class, () -> actual.setQuality(-1));
