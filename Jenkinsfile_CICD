@@ -16,8 +16,8 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo '🧪 Ejecutando tests...'
-                sh 'mvn test'
+                echo '🧪 Ejecutando tests y generando el JAR...'
+                sh 'mvn clean verify'
             }
         }
 
